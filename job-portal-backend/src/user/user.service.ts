@@ -2,8 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma.service';
 import { RegisterUserDto, UpdateUserDto } from './dto/user.dto';
-import * as bcrypt from 'bcrypt'; 
-import { use } from 'passport';
+import * as bcrypt from 'bcrypt';
 import { omit } from 'lodash';
 
 @Injectable()
