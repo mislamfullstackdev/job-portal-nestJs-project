@@ -87,22 +87,17 @@ export class UpdateUserDto {
 }
 
 export class UserResponseDto{
-    import { second } from 'first'
-    fullname: string
-    email: string
-    phoneNumber: string
-    password: string
-    role?: any
-    profileBio: string
-    profileSkills?: string[]
-    profileResume?: string
-    profileResumeOriginalName?: string
-    profilePhoto?: string
-    profileCompanyId?: string
-    profilePhoto?: string  
-    createdAt?: Date  
-    updatedAt                 DateTime      @updatedAt
-    Company                   Company[]
-    Application               Application[]
-    Favorite 
+    id: string;
+    fullname: string;
+    email: string;
+    phoneNumber: string;
+    role: string;
+    profileBio?: string;
+    profileSkills?: string[];
+    profileResume?: string;
+    profileResumeOriginalName?: string;
+    profilePhoto?: string;
+    profileCompanyId?: string;
+    createdAt?: Date; 
+    updatedAt?: Date;
 }
