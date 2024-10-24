@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma.service';
-import { RegisterCompanyDto } from './dto/company.dto';
+import { RegisterCompanyDto, UpdateCompanyDto } from './dto/company.dto';
 
 @Injectable()
 export class CompanyService {
@@ -57,5 +57,27 @@ export class CompanyService {
             throw new NotFoundException("Company not found")
         }
         return company;
+    }
+
+    
+    async deleteCompanyById(id: string){
+        const company = await this.prismaService.company.delete({
+            where:{id},
+        });
+        if(!company){
+            throw new NotFoundException("Company not found")
+        }
+        return company;
+    }
+
+    async updateCompany(id: string, updateCompanyDto: UpdateCompanyDto){
+        const updatedCompany = await this.prismaService.company.update({
+            where:{id},
+            data: updateCompanyDto,
+        })
+        if(!updatedCompany){
+            throw new NotFoundException("Company not found")
+        }
+        return updatedCompany;
     }
 }

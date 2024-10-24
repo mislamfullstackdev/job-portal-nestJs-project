@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { CompanyService } from './company.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { RegisterCompanyDto } from './dto/company.dto';
+import { RegisterCompanyDto, UpdateCompanyDto } from './dto/company.dto';
 
 @Controller('company')
 export class CompanyController {
@@ -42,6 +42,28 @@ export class CompanyController {
         return {
             result,
             success:true
+        }
+    }
+    // delete company by id
+    @UseGuards(JwtAuthGuard)
+    @Delete(":id")
+    async deleteCompanyById(@Param('id') companyId: string){
+        const result = await this.companyService.deleteCompanyById(companyId);
+        return {
+            result,
+            success:true
+        }
+    }
+
+    //Update company
+    @UseGuards(JwtAuthGuard)
+    @Put(":id")
+    async updateCompany(@Param('id') compnyId: string, @Body() updateCompanyDto: UpdateCompanyDto){
+        const result = await this.companyService.updateCompany(compnyId, updateCompanyDto);
+        return {
+            result,
+            success: true,
+            message: "This company updated successfully",
         }
     }
 }
