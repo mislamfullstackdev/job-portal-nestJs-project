@@ -2,7 +2,7 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { PrismaService } from 'src/prisma.service';
 import { PostJobDto } from './dto/job.dto';
 import { gte, lte } from 'lodash';
-import { NotFoundError } from 'rxjs';
+import { NotFoundError, retry } from 'rxjs';
 
 @Injectable()
 export class JobService {
@@ -78,5 +78,40 @@ export class JobService {
             throw new NotFoundException("Job not found")
         }
         return jobs;
+    }
+
+    async getAjobById(id: string){
+        const job = await this.prismaService.job.findUnique({
+            where:{id}
+        })
+        if(!job){
+            throw new NotFoundException("Job Not Found")
+        }
+        return job;
+    }
+
+    //Create Favorite Job
+    async createFavorite(jobId: string, userId: string){
+        let newFavriteJob: any;
+        try {
+            const favoriteJob = await this.prismaService.favorite.findFirst({
+                where: {jobId, userId}
+            }); 
+            if(favoriteJob){
+                throw new NotFoundException("This Job already added in Favorite");
+            }
+
+            newFavriteJob = await this.prismaService.favorite.create({
+                data: {jobId, userId}
+            })
+            if(!newFavriteJob){
+                throw new NotFoundException("Job is not added in Favorite")
+            }
+            return newFavriteJob;
+
+        } catch (error) {
+            
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { JobService } from './job.service';
 import { PostJobDto } from './dto/job.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -26,5 +26,29 @@ export class JobController {
             success: true,
         }
     }
+
+    @Get(':id')
+    async getAjobById(@Param('id') jobId: string){
+        const job = await this.jobService.getAjobById(jobId);
+        return{
+            job,
+            success: true, 
+        }
+    }
+
+    //get job by userId
+    @UseGuards(JwtAuthGuard)
+    @Post('favorite/:id')
+    async getJobByUserId(@Req() res: any, @Param('id') jobId: string){
+        const userId = res.user.id
+        const favJob = await this.jobService.createFavorite(userId, jobId);
+        return{
+            favJob,
+            success: true, 
+        }
+    }
+
+    
+
     
 }
