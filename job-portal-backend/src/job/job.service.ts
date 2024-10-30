@@ -90,6 +90,23 @@ export class JobService {
         return job;
     }
 
+    async getJobsByUserId(createdById: string){
+        try {
+            const jobs = await this.prismaService.job.findMany({
+                where: { createdById },
+                include: {company: true},
+                orderBy: {createdAt: 'desc'}
+            });
+            if (!jobs || !jobs.length) {
+                throw new NotFoundException('No jobs found for the user');
+            }
+            return jobs;
+        } catch (error) {
+            console.error("Error fetching jobs:", error);
+            throw error;
+        }
+    }
+
     //Create Favorite Job
     async createFavorite(jobId: string, userId: string){
         let newFavriteJob: any;
@@ -118,7 +135,6 @@ export class JobService {
                 where: { userId },
                 include: {job: {include: { company: true }}},
             });
-            console.log("favJobs", favJobs)
             if (!favJobs || !favJobs.length) {
                 throw new NotFoundException('No favorite jobs found for the user');
             }
@@ -129,4 +145,3 @@ export class JobService {
         }
     }
 }
-// 671884ddf92c0c640437f02a
