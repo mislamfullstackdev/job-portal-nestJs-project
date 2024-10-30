@@ -116,13 +116,17 @@ export class JobService {
         try {
             const favJobs = await this.prismaService.favorite.findMany({
                 where: { userId },
-                //include: {job: {include: { company: true }}},
+                include: {job: {include: { company: true }}},
             });
-            if(!favJobs?.length){
-                throw new NotFoundException('Job not found');
+            console.log("favJobs", favJobs)
+            if (!favJobs || !favJobs.length) {
+                throw new NotFoundException('No favorite jobs found for the user');
             }
             return favJobs;
-        } catch (error) {}
+        } catch (error) {
+            console.error("Error fetching favorite jobs:", error);
+            throw error;
+        }
     }
 }
 // 671884ddf92c0c640437f02a

@@ -18,21 +18,13 @@ export class JobController {
             success: true,
         }
     }
+
     @Get()
     async getAllJobs(@Query() query: string){
         const jobs = await this.jobService.getAllJobs(query);
         return{
             jobs,
             success: true,
-        }
-    }
-
-    @Get(':id')
-    async getAjobById(@Param('id') jobId: string){
-        const job = await this.jobService.getAjobById(jobId);
-        return{
-            job,
-            success: true, 
         }
     }
 
@@ -50,14 +42,25 @@ export class JobController {
 
     // Get favorite jobs
     @UseGuards(JwtAuthGuard)
-    @Post('favorites')
+    @Get('favorites')
     async getFavoriteJob(@Req() req: any){
         const userId = req.user.id;
         console.log("userId", userId)
-        const result = this.jobService.getFavJobs(userId);
-        return{
+        const result = await this.jobService.getFavJobs(userId);
+        return {
             result,
             success: true
         }
+    } 
+    
+    @Get(':id')
+    async getAjobById(@Param('id') jobId: string){
+        const job = await this.jobService.getAjobById(jobId);
+        return{
+            job,
+            success: true, 
+        }
     }
+
+    
 }
