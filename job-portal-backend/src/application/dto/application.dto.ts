@@ -10,5 +10,5 @@ export class ApplyJobDto{
 export class UpdateStatusDto{
     @IsNotEmpty()
     @IsEnum(["pending", "accepted", "rejected"])
-    status: string
+    status: any
 }

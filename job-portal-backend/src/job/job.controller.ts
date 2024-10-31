@@ -45,7 +45,6 @@ export class JobController {
     @Get('favorites')
     async getFavoriteJob(@Req() req: any){
         const userId = req.user.id;
-        console.log("userId", userId)
         const result = await this.jobService.getFavJobs(userId);
         return {
             result,
@@ -65,6 +64,7 @@ export class JobController {
         }
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get(':id')
     async getAjobById(@Param('id') jobId: string){
         const job = await this.jobService.getAjobById(jobId);

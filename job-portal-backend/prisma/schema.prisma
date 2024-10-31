@@ -61,7 +61,7 @@ model Job {
   user            User          @relation(fields: [createdById], references: [id])
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
-  Application     Application[]
+  applicantions   Application[]
   Favorite        Favorite[]
 }
 
