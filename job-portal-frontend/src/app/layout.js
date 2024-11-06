@@ -3,6 +3,7 @@ import "./globals.css";
 import MantProvider from "@/providers/MantineProvider";
 import { Toaster } from "sonner";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
         <Toaster />
         <Navbar />
         {children}
+        <Footer/>
       </MantProvider>
       </body>
     </html>
