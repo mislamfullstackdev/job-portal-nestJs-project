@@ -25,5 +25,13 @@ export default function FormInput({
             className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1" 
             />
         </div>
+
     )
+    console.log(label, 
+        type, 
+        value, 
+        onChange, 
+        name, 
+        placeholder, 
+        defaultValue,)
 }
