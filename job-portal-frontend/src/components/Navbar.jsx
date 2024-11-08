@@ -1,7 +1,17 @@
-import Link from 'next/link'
-import React from 'react'
+"use client";
+import { useLocalStorage } from '@mantine/hooks';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import React from 'react';
 
 export default function Navbar() {
+  const router = useRouter();
+  // use local storage
+  const [user, setUser] = useLocalStorage({
+    key: 'userData',
+    defaultValue: {},
+  });
+  console.log("user?.user", user?.user)
   return (
     <div className='text-white'>
         <div className="flex items-center justify-between px-5 mx-auto max-w-7xl h-16">

@@ -21,7 +21,7 @@ export default function Register() {
         profileResumeOriginalName: "",
     })
     const [formData, setFormData] = useState({
-        fullname: "", // Initialize with empty string to avoid uncontrolled to controlled switch
+        fullname: "", 
         email: "",
         phoneNumber: "",
         password: "",
@@ -87,7 +87,7 @@ export default function Register() {
                     type="text"
                     name="fullname"
                     value={formData.fullname}
-                    onChange={handleInputChange}  // Now onChange is set to handle state
+                    onChange={handleInputChange}
                     placeholder="Enter your name"
                 />
                 <FormInput
@@ -177,8 +177,8 @@ export default function Register() {
                     name="role"
                     placeholder="Select user role"
                     list={["student", "recruiter"]}
-                    value={formData.role} // Bind value from formData
-                    onChange={handleInputChange} // Pass handleInputChange to update form state
+                    value={formData.role} 
+                    onChange={handleInputChange} 
                 />
 
                 <Button
